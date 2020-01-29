@@ -12,13 +12,8 @@ This Employee Directory is built with React. I used a random user generator API 
 
 ### Photos
 
-<<<<<<< HEAD
-![screen shot 1]("./public/1.jpg)
-![screen shot 2]("./public/2.jpg")
-=======
-![screen shot 1]("hw19/public/1.png)
-![screen shot 2]("hw19/public/2.png")
->>>>>>> ce12bbd6e94051613f5e85f2cd603861791c7308
+![screen shot 1](./public/1.jpg)
+![screen shot 2](./public/2.jpg)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
