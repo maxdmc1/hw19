@@ -6,43 +6,56 @@ import Form from "../Form";
 console.log(data);
 
 export default function Table({ props }) {
-  const [employeeState, setEmployeeState] = useState({ data });
+  const [employeeState, setEmployeeState] = useState(data);
   console.log("employeeState: ", employeeState); // this is logging the 25 employees as expected
 
-  // this useEffect code is causing too many renders - react is stopping an infinite loop
+  useEffect(() => {
+    // setEmployeeState(data);
+  }, [employeeState]);
 
-  // useEffect(data => {
-  //   setEmployeeState(...data);
-
-  //   console.log(employeeState);
-  // }, []);
-
-  // sortByAge(){
-  // let sortedEmployees = [];
-  // function sort(a,b){
-  //   if (a.age > b.age){
-  //     return -1;
-  //   }
-  //   if (a.age < b.age){
-  //     return 1;
-  //   }
-  //   return 0
-  // }
-  // };
-
-  const sortByFirstName = () => {
-    let sortedEmployees = [];
-    function sort(a, b) {
-      if (a.first > b.first) {
+  // sortByAge
+  function sortByAge() {
+    let sortedEmployees = [...data];
+    sortedEmployees.sort(function(a, b) {
+      if (a.age < b.age) {
         return -1;
       }
-      if (a.first < b.first) {
+      if (a.age > b.age) {
         return 1;
       }
       return 0;
-    }
-    return [...sortedEmployees];
-  };
+    });
+    setEmployeeState([...sortedEmployees]);
+  }
+
+  // sortByFirstName
+  function sortByFirstName() {
+    let sortedEmployees = [...data];
+    sortedEmployees.sort(function(a, b) {
+      if (a.first < b.first) {
+        return -1;
+      }
+      if (a.first > b.first) {
+        return 1;
+      }
+      return 0;
+    });
+    setEmployeeState([...sortedEmployees]);
+  }
+
+  function sortByLastName() {
+    let sortedEmployees = [...data];
+    sortedEmployees.sort(function(a, b) {
+      if (a.last < b.last) {
+        return -1;
+      }
+      if (a.last > b.last) {
+        return 1;
+      }
+      return 0;
+    });
+    setEmployeeState([...sortedEmployees]);
+  }
 
   return (
     <table className="table">
@@ -52,17 +65,17 @@ export default function Table({ props }) {
             <button onClick={sortByFirstName}>First Name</button>
           </th>
           <th>
-            <button onClick={() => data.sortBy("last")}>Last Name</button>
+            <button onClick={sortByLastName}>Last Name</button>
           </th>
           <th>E-Mail</th>
           <th>Gender</th>
           <th>
-            <button onClick={() => data.sortByAge("age")}>Age</button>
+            <button onClick={sortByAge}>Age</button>
           </th>
         </tr>
       </thead>
       <tbody>
-        {data.map(employeeState => (
+        {employeeState.map(employeeState => (
           <tr key="id">
             <td>{employeeState.first}</td>
             <td>{employeeState.last}</td>
