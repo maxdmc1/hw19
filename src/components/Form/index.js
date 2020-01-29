@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import "./style.css";
 
 function Form() {
-  const [firstName, setFirstName] = useState("");
+  const [firstNameFilter, setFirstNameFilter] = useState("");
 
   return (
     <div>
-      <p>Filter on First Name {firstName}</p>
+      <p>Filter on First Name {firstNameFilter}</p>
       <form className="form">
         <input
-          value={firstName}
-          name="firstName"
-          onChange={({ target }) => setFirstName(target.value)}
+          value={firstNameFilter}
+          name="firstNameFilter"
+          onChange={({ target }) => setFirstNameFilter(target.value)}
           type="text"
           placeholder="First Name"
           // during onChange - filter the state to include only names containing the letters in the input
@@ -22,9 +22,9 @@ function Form() {
             // Preventing the default behavior of the form submit (which is to refresh the page)
             event.preventDefault();
 
-            // Alert the user their first and last name, clear `firstName` and `lastName`, clearing the inputs
+            // Alert the user their first and last name, clear `firstNameFilter` and `lastName`, clearing the inputs
 
-            setFirstName("");
+            setFirstNameFilter("");
           }}
         >
           Submit

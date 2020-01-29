@@ -6,21 +6,10 @@ import Form from "../Form";
 console.log(data);
 
 export default function Table({ props }) {
-  const [employeeState, setEmployeeState] = useState({
-    id: "",
-    gender: "",
-    title: "",
-    first: "",
-    last: "",
-    email: "",
-    date: "",
-    age: 0,
-    large: "",
-    medium: "",
-    thumbnail: ""
-  });
+  const [employeeState, setEmployeeState] = useState({ data });
+  console.log("employeeState: ", employeeState); // this is logging the 25 employees as expected
 
-  // this code is causing too many renders - react is stopping an infinite loop
+  // this useEffect code is causing too many renders - react is stopping an infinite loop
 
   // useEffect(data => {
   //   setEmployeeState(...data);
@@ -28,21 +17,39 @@ export default function Table({ props }) {
   //   console.log(employeeState);
   // }, []);
 
-sortByAge(){
+  // sortByAge(){
+  // let sortedEmployees = [];
+  // function sort(a,b){
+  //   if (a.age > b.age){
+  //     return -1;
+  //   }
+  //   if (a.age < b.age){
+  //     return 1;
+  //   }
+  //   return 0
+  // }
+  // };
 
-};
-
-sortByFirstName(){
-
-};
-
+  const sortByFirstName = () => {
+    let sortedEmployees = [];
+    function sort(a, b) {
+      if (a.first > b.first) {
+        return -1;
+      }
+      if (a.first < b.first) {
+        return 1;
+      }
+      return 0;
+    }
+    return [...sortedEmployees];
+  };
 
   return (
     <table className="table">
       <thead>
         <tr>
           <th>
-            <button onClick={() => data.sortBy("first")}>First Name</button>
+            <button onClick={sortByFirstName}>First Name</button>
           </th>
           <th>
             <button onClick={() => data.sortBy("last")}>Last Name</button>
@@ -50,18 +57,18 @@ sortByFirstName(){
           <th>E-Mail</th>
           <th>Gender</th>
           <th>
-            <button onClick={() => data.sortBy("age")}>Age</button>
+            <button onClick={() => data.sortByAge("age")}>Age</button>
           </th>
         </tr>
       </thead>
       <tbody>
-        {data.map(data => (
+        {data.map(employeeState => (
           <tr key="id">
-            <td>{data.first}</td>
-            <td>{data.last}</td>
-            <td>{data.email}</td>
-            <td>{data.gender}</td>
-            <td>{data.age}</td>
+            <td>{employeeState.first}</td>
+            <td>{employeeState.last}</td>
+            <td>{employeeState.email}</td>
+            <td>{employeeState.gender}</td>
+            <td>{employeeState.age}</td>
           </tr>
         ))}
       </tbody>
