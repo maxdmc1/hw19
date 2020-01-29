@@ -14,6 +14,7 @@ function Form() {
           onChange={({ target }) => setFirstName(target.value)}
           type="text"
           placeholder="First Name"
+          // during onChange - filter the state to include only names containing the letters in the input
         />
 
         <button

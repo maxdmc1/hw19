@@ -19,11 +19,23 @@ export default function Table({ props }) {
     medium: "",
     thumbnail: ""
   });
+
+  // this code is causing too many renders - react is stopping an infinite loop
+
   // useEffect(data => {
   //   setEmployeeState(...data);
 
   //   console.log(employeeState);
   // }, []);
+
+sortByAge(){
+
+};
+
+sortByFirstName(){
+
+};
+
 
   return (
     <table className="table">
