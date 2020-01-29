@@ -1,3 +1,20 @@
+# Employee Directory - React
+
+This project is the Homework aassignment for section 19 of Coding Bootcamp
+
+### Deployed app link
+
+https://max-react-directory.netlify.com/
+
+### Description
+
+This Employee Directory is built with React. I used a random user generator API to fetch 25 users and put them into a json file for ease of use. In the table of users you can click the button in a few of the columns to sort ascending for each of the values - first name, last name, and age. You can also filter the list of employees by letters in thier first names. For instance if you search on the letter "M" the list of 25 now displays 7 employees. The full list of employees can be re-displayed by clicking the button labeled "Reset Table of Employees"
+
+### Photos
+
+![screen shot 1]("./public/1.png")
+![screen shot 2]("./public/2.png")
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
