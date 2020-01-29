@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./table.css";
 import data from "../../data/employees.json";
-import Form from "../Form";
 
 console.log(data);
 
 export default function Table({ props }) {
   const [employeeState, setEmployeeState] = useState(data);
+  const [firstNameString, setFirstNameString] = useState("");
   console.log("employeeState: ", employeeState); // this is logging the 25 employees as expected
+  console.log("other state of input: ", firstNameString);
 
   useEffect(() => {
     // setEmployeeState(data);
@@ -15,7 +16,7 @@ export default function Table({ props }) {
 
   // sortByAge
   function sortByAge() {
-    let sortedEmployees = [...data];
+    let sortedEmployees = [...employeeState];
     sortedEmployees.sort(function(a, b) {
       if (a.age < b.age) {
         return -1;
@@ -30,7 +31,7 @@ export default function Table({ props }) {
 
   // sortByFirstName
   function sortByFirstName() {
-    let sortedEmployees = [...data];
+    let sortedEmployees = [...employeeState];
     sortedEmployees.sort(function(a, b) {
       if (a.first < b.first) {
         return -1;
@@ -44,7 +45,7 @@ export default function Table({ props }) {
   }
 
   function sortByLastName() {
-    let sortedEmployees = [...data];
+    let sortedEmployees = [...employeeState];
     sortedEmployees.sort(function(a, b) {
       if (a.last < b.last) {
         return -1;
@@ -57,35 +58,65 @@ export default function Table({ props }) {
     setEmployeeState([...sortedEmployees]);
   }
 
+  const filterName = function() {
+    setEmployeeState(
+      employeeState.filter(employee =>
+        employee.first.toLowerCase().includes(firstNameString.toLowerCase())
+      )
+    );
+  };
+
+  const reset = function() {
+    setEmployeeState(data);
+  };
+
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>
-            <button onClick={sortByFirstName}>First Name</button>
-          </th>
-          <th>
-            <button onClick={sortByLastName}>Last Name</button>
-          </th>
-          <th>E-Mail</th>
-          <th>Gender</th>
-          <th>
-            <button onClick={sortByAge}>Age</button>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {employeeState.map(employeeState => (
-          <tr key="id">
-            <td>{employeeState.first}</td>
-            <td>{employeeState.last}</td>
-            <td>{employeeState.email}</td>
-            <td>{employeeState.gender}</td>
-            <td>{employeeState.age}</td>
+    <div>
+      <button onClick={reset} type="button">
+        Reset Table of Employees
+      </button>
+      <form className="form">
+        <input
+          value={firstNameString}
+          name="firstNameFilter"
+          onChange={({ target }) => setFirstNameString(target.value)}
+          type="text"
+          placeholder="First Name"
+          // during onChange - filter the state to include only names containing the letters in the input
+        />
+        <button onClick={filterName} type="button">
+          Filter by letters in First Name
+        </button>
+      </form>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>
+              <button onClick={sortByFirstName}>First Name</button>
+            </th>
+            <th>
+              <button onClick={sortByLastName}>Last Name</button>
+            </th>
+            <th>E-Mail</th>
+            <th>Gender</th>
+            <th>
+              <button onClick={sortByAge}>Age</button>
+            </th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {employeeState.map(employeeState => (
+            <tr key={data.id}>
+              <td>{employeeState.first}</td>
+              <td>{employeeState.last}</td>
+              <td>{employeeState.email}</td>
+              <td>{employeeState.gender}</td>
+              <td>{employeeState.age}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
